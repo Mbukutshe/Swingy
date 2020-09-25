@@ -2,6 +2,17 @@ package Model;
 
 public class HeroCreator {
 
+    public static Hero createHero(String name, String hClass) {
+        if (hClass.equalsIgnoreCase("Warrior"))
+            return newWarrior(name);
+        else if (hClass.equalsIgnoreCase("Soldier"))
+                return newSoldier(name);
+            else if (hClass.equalsIgnoreCase("Coward"))
+                    return  newCoward(name);
+                else
+                    throw new IllegalArgumentException("Invalid Hero Class");
+    }
+
     public static NewHero newHero(String name){
         NewHero hero = new NewHero();
         hero.setLevel(0);
