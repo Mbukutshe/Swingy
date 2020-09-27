@@ -64,4 +64,63 @@ public class Hero extends Player {
     public void setHelm(Helm helm) {
         this.helm = helm;
     }
+
+    public void giveWeapon(Weapon tool)
+    {
+        int tPoints = tool.getPoints();
+        int thisPoints = this.getWeapon().getPoints();
+        if(this.getWeapon() != null)
+            this.setAttack(this.getAttack() - thisPoints);
+        this.setAttack(this.getAttack() + tPoints);
+        this.setWeapon(tool);
+    }
+
+    public void giveHelm(Helm tool)
+    {
+        int tPoints = tool.getPoints();
+        int thisPoints = this.getHelm().getPoints();
+        if (this.getHelm() != null)
+        {
+            this.sethPoints(this.gethPoints() - thisPoints);
+            int twoPoints = this.gethPoints() + tPoints;
+            if (twoPoints <= 0)
+            {
+                this.sethPoints(this.gethPoints() + thisPoints);
+                return;
+            }
+        }
+        this.sethPoints(this.gethPoints() + tPoints);
+        this.setHelm(tool);
+    }
+
+    public void increaseExp()
+    {
+        int level = this.getLevel() + 1;
+        int hPoints = this.gethPoints() + (50 + (level * 450));
+        this.setAttack(this.getAttack() + (level * 3));
+        this.setDefense(this.getDefense() + (level * 2));
+        this.setLevel(level);
+        this.sethPoints(hPoints);
+    }
+
+    public void addExp(int exp)
+    {
+        int next = (this.getLevel() + 1) * 1000 + this.getLevel() * this.getLevel() * 450;
+        int sum = this.getExp() + exp;
+        if(sum >= next)
+        {
+            this.increaseExp();
+        }
+        this.setExp(this.getExp() + exp);
+    }
+
+    public void giveArmor(Armor tool){
+        int tPoints = tool.getPoints();
+        if (this.getArmor() != null)
+        {
+            this.setDefense(this.getDefense() - this.getArmor().getPoints());
+        }
+        this.setDefense(this.getDefense() + tPoints);
+        this.setArmor(tool);
+    }
 }

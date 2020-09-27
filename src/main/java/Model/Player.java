@@ -2,6 +2,8 @@ package Model;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public abstract class Player {
     @NotNull("name cannot be null")
     protected String name;
@@ -9,7 +11,8 @@ public abstract class Player {
     protected int hPoints;
     protected int defense;
 
-    public Player(String name, int attack, int hPoints, int defense) {
+    public Player(String name, int attack, int hPoints, int defense)
+    {
         this.setName(name);
         this.setAttack(attack);
         this.sethPoints(hPoints);
@@ -18,35 +21,75 @@ public abstract class Player {
 
 
     @NotNull
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(@NotNull String name) {
+    public void setName(@NotNull String name)
+    {
         this.name = name;
     }
 
-    public int getAttack() {
+    public int getAttack()
+    {
         return attack;
     }
 
-    public void setAttack(int attack) {
+    public void setAttack(int attack)
+    {
         this.attack = attack;
     }
 
-    public int gethPoints() {
+    public int gethPoints()
+    {
         return hPoints;
     }
 
-    public void sethPoints(int hPoints) {
+    public void sethPoints(int hPoints)
+    {
         this.hPoints = hPoints;
     }
 
-    public int getDefense() {
+    public int getDefense()
+    {
         return defense;
     }
 
-    public void setDefense(int defense) {
+    public void setDefense(int defense)
+    {
         this.defense = defense;
+    }
+    public void attack(Player player)
+    {
+        int playerDefense = player.getDefense();
+        int playerPoints = player.gethPoints();
+        int randNumber = ThreadLocalRandom.current().nextInt(0,10);
+        if (this.getAttack() > playerDefense)
+        {
+            int difference = playerPoints - (this.attack - playerDefense);
+            player.sethPoints(difference);
+        }
+        else
+            if (randNumber <= 2)
+            {
+                player.sethPoints(playerPoints - this.attack);
+            }
+    }
+
+    public boolean battle(Player player)
+    {
+        boolean results = false;
+        int playerPoints = player.gethPoints();
+        int heroPoints  = this.gethPoints();
+        while(playerPoints > 0 && heroPoints > 0)
+        {
+            this.attack(player);
+            player.attack(this);
+            playerPoints = player.gethPoints();
+            heroPoints  = this.gethPoints();
+        }
+        results = playerPoints > 0;
+        return results;
     }
 }
