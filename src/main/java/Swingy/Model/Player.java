@@ -1,4 +1,4 @@
-package Model;
+package Swingy.Model;
 
 import org.jetbrains.annotations.NotNull;
 

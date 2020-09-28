@@ -1,4 +1,4 @@
-package Model;
+package Swingy.Model;
 
 public class Hero extends Player {
     private int level;
@@ -103,7 +103,7 @@ public class Hero extends Player {
         this.sethPoints(hPoints);
     }
 
-    public void addExp(int exp)
+    public void increaseLevel(int exp)
     {
         int next = (this.getLevel() + 1) * 1000 + this.getLevel() * this.getLevel() * 450;
         int sum = this.getExp() + exp;
@@ -122,5 +122,42 @@ public class Hero extends Player {
         }
         this.setDefense(this.getDefense() + tPoints);
         this.setArmor(tool);
+    }
+
+    public String printOut()
+    {
+        StringBuilder output = new StringBuilder();
+        output.append("Name: ").append(this.getName()).append("\n");
+        output.append("Class: ").append(this.getHeroClass()).append("\n");
+        output.append("Level: ").append(this.getLevel()).append("\n");
+        output.append("XP: ").append(this.getExp()).append("\n");
+        output.append("Attack: ").append(this.getAttack()).append("\n");
+        output.append("Defense: ").append(this.getDefense()).append("\n");
+        output.append("HP: ").append(this.gethPoints()).append("\n");
+
+        output.append("Weapon: ");
+        if (this.getWeapon() != null)
+        {
+            output.append(this.getWeapon().getName()).append(" (attack +").append(this.getWeapon().getPoints()).append(")\n");
+        }
+        else {
+            output.append(" no weapon\n");
+        }
+
+        output.append("Helm: ");
+        if (this.getHelm() != null)
+        {
+            output.append(this.getHelm().getName()).append(" (hp +").append(this.getHelm().getPoints()).append(")\n");
+        }
+        else {
+            output.append(" no helmet\n");
+        }
+
+        output.append("Armor: ");
+        if (this.getArmor() != null)
+            output.append(this.getArmor().getName()).append(" (defense +").append(this.getArmor().getPoints()).append(")\n");
+        else
+            output.append(" no armor\n");
+        return output.toString();
     }
 }

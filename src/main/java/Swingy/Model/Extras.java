@@ -1,4 +1,4 @@
-package Model;
+package Swingy.Model;
 
 public abstract class Extras {
     private String name;
@@ -23,5 +23,8 @@ public abstract class Extras {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+    public String printOut() {
+        return this.getName() + " (+" + this.getPoints() + ")";
     }
 }

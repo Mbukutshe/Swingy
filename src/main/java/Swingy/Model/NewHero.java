@@ -1,4 +1,4 @@
-package Model;
+package Swingy.Model;
 
 public class NewHero {
     protected String name;

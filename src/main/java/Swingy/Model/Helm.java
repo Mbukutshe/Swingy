@@ -1,4 +1,4 @@
-package Model;
+package Swingy.Model;
 
 public class Helm extends Extras{
 
