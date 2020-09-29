@@ -13,26 +13,25 @@ public class StartConsole {
         System.out.println("enter available commands to play.");
 
         Scanner scanner = Main.returnScanner();
-        System.out.println();
-        System.out.println("CREATE - to create hero");
-        System.out.println("SELECT - to select already created hero");
-        System.out.println("SWITCH - to switch to GUI view");
-        System.out.println("Commands (CREATE, SELECT, SWITCH):");
+        System.out.println("\n1:CREATE - hero\n" +
+                "2:SELECT - created hero\n" +
+                "3:SWITCH - GUI View\n" +
+                "Options (1, 2, 3):");
         while (scanner.hasNext())
         {
             String command = scanner.nextLine();
 
-            if (command.equalsIgnoreCase("create"))
+            if (command.equalsIgnoreCase("1"))
             {
                 c.createHero();
                 break;
             }
-            else if (command.equalsIgnoreCase("select"))
+            else if (command.equalsIgnoreCase("2"))
             {
                 c.selectHero();
                 break;
             }
-            else if (command.equalsIgnoreCase("switch"))
+            else if (command.equalsIgnoreCase("3"))
             {
                 c.switchMode();
                 break;
