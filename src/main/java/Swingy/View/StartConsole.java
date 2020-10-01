@@ -5,11 +5,13 @@ import Swingy.Main;
 
 import java.util.Scanner;
 
-public class StartConsole {
+public class StartConsole extends Entry{
 
     public Begin c;
-    public void start() {
-        c = new Begin();
+
+    @Override
+    public void begin() {
+        c = new Begin(this);
         System.out.println("enter available commands to play.");
 
         Scanner scanner = Main.returnScanner();
@@ -41,5 +43,20 @@ public class StartConsole {
                 System.out.println("Unknown command");
             }
         }
+    }
+
+    @Override
+    public void chooseHero() {
+
+    }
+
+    @Override
+    public void CreateHero() {
+
+    }
+
+    @Override
+    public void switchInterface() {
+
     }
 }

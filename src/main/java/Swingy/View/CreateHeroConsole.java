@@ -5,13 +5,15 @@ import Swingy.Main;
 
 import java.util.Scanner;
 
-public class CreateHeroConsole {
+public class CreateHeroConsole extends Create{
 
     public CreateHero c;
     private  Scanner scanner;
-    public void begin()
+
+    @Override
+    public void readInput()
     {
-        c = new CreateHero();
+        c = new CreateHero(this);
         scanner = Main.returnScanner();
 
         System.out.println("Enter hero name and class.\n" +
@@ -39,4 +41,15 @@ public class CreateHeroConsole {
             }
         }
     }
+
+    @Override
+    public void error(String message) {
+        System.out.println("error:" + message);
+    }
+
+    @Override
+    public void beginGame() {
+
+    }
+
 }

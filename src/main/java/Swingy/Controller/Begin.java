@@ -1,21 +1,29 @@
 package Swingy.Controller;
 
-import Swingy.View.CreateHeroConsole;
+import Swingy.View.*;
 
 public class Begin {
 
-    public  void createHero()
+    protected Entry entry;
+
+    public void createHero()
     {
-        new CreateHeroConsole().begin();
+        this.entry.begin();
     }
 
-    public void switchMode()
+    public Begin(Entry entry)
     {
-
+        this.entry = entry;
     }
 
     public void selectHero()
     {
-
+        this.entry.chooseHero();
     }
+
+    public void switchMode()
+    {
+        this.entry.switchInterface();
+    }
+
 }
