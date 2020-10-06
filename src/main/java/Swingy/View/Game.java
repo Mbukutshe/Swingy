@@ -13,7 +13,7 @@ public abstract class Game
 
     public abstract void finishGame();
 
-    public abstract void pintMessage(String message);
+    public abstract void printMessage(String message);
 
     public abstract void getEnemyInput();
 

@@ -8,7 +8,7 @@ public class Begin {
 
     public void createHero()
     {
-        this.entry.begin();
+        this.entry.CreateHero();
     }
 
     public Begin(Entry entry)

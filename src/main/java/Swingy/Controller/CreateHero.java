@@ -25,7 +25,7 @@ public class CreateHero {
 
 //        int id = DataBase.insert(hero.getName(), hero.getHeroClass(), hero.getLevel(), hero.getExperience(), hero.getAttack(), hero.getDefense(), hero.getHitPoints());
 //        hero.setId(id);
-//        game.initGame(hero);
+        game.beginRPGGame(hero);
         openGame();
     }
 

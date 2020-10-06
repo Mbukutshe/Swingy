@@ -10,7 +10,8 @@ public class RPGGame {
     protected int mapSize;
     protected boolean[][] map;
 
-    public void beginRPGGame(Hero hero) {
+    public void beginRPGGame(Hero hero)
+    {
         this.hero = hero;
         createGame();
     }
@@ -70,7 +71,8 @@ public class RPGGame {
         return context;
     }
 
-    public void placeEnemies() {
+    public void placeEnemies()
+    {
         int value = 0;
         int level = hero.getLevel();
 
@@ -78,7 +80,7 @@ public class RPGGame {
         {
             for (int j = 0; j < mapSize; j++)
             {
-                value = ThreadLocalRandom.current().nextInt(0, 101);
+                value = ThreadLocalRandom.current().nextInt(0, 100);
                 if ((level + 1) * 10 >= value)
                 {
                     map[i][j] = true;
@@ -93,27 +95,38 @@ public class RPGGame {
         map[coordinates.getYCoord()][coordinates.getXCoord()] = false;
     }
 
-    public Hero getHero() {
+    public Hero getHero()
+    {
         return hero;
     }
 
-    public void setHero(Hero hero) {
+    public void setHero(Hero hero)
+    {
         this.hero = hero;
     }
 
-    public boolean[][] returnField() {
+    public boolean[][] returnField()
+    {
         return map;
     }
 
-    public void setField(boolean[][] field) {
+    public int returnFieldSize()
+    {
+        return mapSize;
+    }
+
+    public void setField(boolean[][] field)
+    {
         this.map = field;
     }
 
-    public Coordinates getCoordinates() {
+    public Coordinates getCoordinates()
+    {
         return this.coordinates;
     }
 
-    public void setCoordinates(Coordinates coordinates) {
+    public void setCoordinates(Coordinates coordinates)
+    {
        this.coordinates = coordinates;
     }
 

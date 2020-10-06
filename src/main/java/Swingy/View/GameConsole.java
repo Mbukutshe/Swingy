@@ -9,11 +9,17 @@ import java.util.Scanner;
 
 public class GameConsole extends Game{
     Field c;
+
+    public void init()
+    {
+        c = new Field(this);
+        c.startGame();
+    }
+
     @Override
     public void startGame()
     {
         Scanner scanner = Main.returnScanner();
-        c = new Field(this);
 
         System.out.println("1: move to NORTH,\n 2: move to EAST,\n 3: move to SOUTH,\n 4: move to WEST");
         System.out.println("5:SWITCH - to GUI");
@@ -77,9 +83,10 @@ public class GameConsole extends Game{
     {
         System.out.println("************** Hero Current Position ************");
         System.out.println(game.getHero().toString() +
-                "Position: " + "(" + game.getCoordinates().getXCoord() +
+                "\tPosition: " + "(" + game.getCoordinates().getXCoord() +
                 "," + game.getCoordinates().getYCoord() + ")");
         System.out.println("**********************");
+        startGame();
     }
 
     @Override
@@ -88,22 +95,47 @@ public class GameConsole extends Game{
     }
 
     @Override
-    public void pintMessage(String message) {
+    public void printMessage(String message) {
 
     }
 
     @Override
-    public void getEnemyInput() {
+    public void getEnemyInput()
+    {
+        Scanner scanner = Main.returnScanner();
 
+        System.out.println("\nYou encountered an Enemy\n1:FIGHT - to fight with Enemy\n2:RUN - to run, 50% chance to move to the previous position");
+        System.out.println("options (1, 2):");
+        while (scanner.hasNext())
+        {
+            String v = scanner.nextLine();
+
+            if("1".equalsIgnoreCase(v))
+            {
+                c.attack();
+                break;
+            }
+            else if("2".equalsIgnoreCase(v))
+            {
+                c.run();
+                break;
+            }
+            else
+            {
+                System.out.println("Invalid option");
+            }
+        }
     }
 
     @Override
-    public boolean replaceExtras(String replaceMessage) {
+    public boolean replaceExtras(String replaceMessage)
+    {
         return false;
     }
 
     @Override
-    public void switchGame() {
+    public void switchGame()
+    {
 
     }
 }
