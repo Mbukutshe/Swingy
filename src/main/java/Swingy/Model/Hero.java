@@ -1,8 +1,14 @@
 package Swingy.Model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class Hero extends Player {
+    @Min(1)
     private int level;
+    @Min(1)
     private int exp;
+    @NotNull(message = "Hero class is required")
     private String heroClass;
     private  Weapon weapon;
     private  Armor armor;
@@ -21,7 +27,7 @@ public class Hero extends Player {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(@Min(1) int level) {
         this.level = level;
     }
 
@@ -29,7 +35,7 @@ public class Hero extends Player {
         return exp;
     }
 
-    public void setExp(int exp) {
+    public void setExp(@Min(1) int exp) {
         this.exp = exp;
     }
 
@@ -37,7 +43,7 @@ public class Hero extends Player {
         return heroClass;
     }
 
-    public void setHeroClass(String heroClass) {
+    public void setHeroClass(@NotNull(message = "Hero class is required") String heroClass) {
         this.heroClass = heroClass;
     }
 

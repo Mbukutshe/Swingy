@@ -75,11 +75,11 @@ public class GameConsole extends Game{
     @Override
     public void updateGame(RPGGame game)
     {
-        System.out.println("----------INFO----------");
+        System.out.println("************** Hero Current Position ************");
         System.out.println(game.getHero().toString() +
                 "Position: " + "(" + game.getCoordinates().getXCoord() +
                 "," + game.getCoordinates().getYCoord() + ")");
-        System.out.println("------------------------");
+        System.out.println("**********************");
     }
 
     @Override

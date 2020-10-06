@@ -42,7 +42,6 @@ public class Field {
     {
         game.getCoordinates().setXCoord(x_coordinate);
         game.getCoordinates().setYCoord(y_coordinate);
-
     }
 
     public void change()

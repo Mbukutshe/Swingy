@@ -1,14 +1,18 @@
 package Swingy.Model;
 
-import org.jetbrains.annotations.NotNull;
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Player {
-    @NotNull("name cannot be null")
+    @NotNull(message = "name cannot be null")
     protected String name;
+    @NotNull
+    @Min(1)
     protected int attack;
+    @Min(1)
     protected int hPoints;
+    @Min(1)
     protected int defense;
 
     public Player(String name, int attack, int hPoints, int defense)

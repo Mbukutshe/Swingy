@@ -1,4 +1,6 @@
 package Swingy;
+import Swingy.View.StartConsole;
+
 import java.util.Scanner;
 public class Main {
     private static Scanner scanner;
@@ -14,7 +16,11 @@ public class Main {
             System.out.println("Usage: pass console | gui as an argument");
             System.exit(1);
         }
-
+        if (args[0].equals("console"))
+        {
+            new StartConsole().begin();
+        }
+        closeObjects();
     }
 
     public static Scanner returnScanner()
