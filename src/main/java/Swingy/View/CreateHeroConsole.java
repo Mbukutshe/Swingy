@@ -43,13 +43,13 @@ public class CreateHeroConsole extends Create{
     }
 
     @Override
-    public void error(String message) {
-        System.out.println("error:" + message);
+    public void beginGame() {
+
     }
 
     @Override
-    public void beginGame() {
-
+    public void error(String message) {
+        System.out.println("error:" + message);
     }
 
 }

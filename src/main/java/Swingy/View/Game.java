@@ -1,6 +1,7 @@
 package Swingy.View;
 
 import Swingy.Model.Coordinates;
+import Swingy.Model.RPGGame;
 
 public abstract class Game
 {
@@ -8,7 +9,7 @@ public abstract class Game
 
     public abstract void printOutMap(boolean[][] field, Coordinates coordinates);
 
-    public abstract void updateGame(Game game);
+    public abstract void updateGame(RPGGame game);
 
     public abstract void finishGame();
 

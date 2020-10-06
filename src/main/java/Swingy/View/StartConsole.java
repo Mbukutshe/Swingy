@@ -52,7 +52,7 @@ public class StartConsole extends Entry{
 
     @Override
     public void CreateHero() {
-
+        new CreateHeroConsole().readInput();
     }
 
     @Override
