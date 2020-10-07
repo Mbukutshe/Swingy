@@ -4,6 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class Hero extends Player {
+    private int heroId;
     @Min(1)
     private int level;
     @Min(1)
