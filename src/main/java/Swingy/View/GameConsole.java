@@ -81,8 +81,8 @@ public class GameConsole extends Game{
     @Override
     public void updateGame(RPGGame game)
     {
-        System.out.println("************** Hero Current Position ************");
-        System.out.println(game.getHero().toString() +
+        System.out.println("************** Hero Details ************");
+        System.out.println(game.getHero().printOut() +
                 "\tPosition: " + "(" + game.getCoordinates().getXCoord() +
                 "," + game.getCoordinates().getYCoord() + ")");
         System.out.println("**********************");
@@ -90,13 +90,14 @@ public class GameConsole extends Game{
     }
 
     @Override
-    public void finishGame() {
-
+    public void finishGame()
+    {
+        System.out.println("Game Finished!");
     }
 
     @Override
     public void printMessage(String message) {
-
+        System.out.println(message);
     }
 
     @Override
@@ -112,7 +113,7 @@ public class GameConsole extends Game{
 
             if("1".equalsIgnoreCase(v))
             {
-                c.attack();
+                c.onAttack();
                 break;
             }
             else if("2".equalsIgnoreCase(v))

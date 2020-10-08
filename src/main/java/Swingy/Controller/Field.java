@@ -1,8 +1,12 @@
 package Swingy.Controller;
 
 import Swingy.Model.Coordinates;
+import Swingy.Model.Enemy;
+import Swingy.Model.Hero;
 import Swingy.Model.RPGGame;
 import Swingy.View.Game;
+
+import java.util.Random;
 
 public class Field
 {
@@ -40,7 +44,7 @@ public class Field
                 y_coordinate < 0 ||
                 x_coordinate >= game.returnFieldSize() ||
                 y_coordinate >= game.returnFieldSize()) {
-//            winGame();
+            win();
             return;
         }
         this.involveInBattle(x_coordinate, y_coordinate);
@@ -58,6 +62,43 @@ public class Field
             this.field.updateGame(game);
     }
 
+    private void win() {
+        this.field.printMessage("You won! and got additional " + game.returnFieldSize() * 100 + "xp!");
+        addExperience(game.returnFieldSize() * 100);
+        updateDataBase();
+        this.field.finishGame();
+    }
+
+    private void addExperience(int xp) {
+        int level = game.getHero().getLevel();
+        game.getHero().increaseLevel(xp);
+        if (level != game.getHero().getLevel())
+            this.field.printMessage("Increase!!!\nHP, attack and defense were increased!");
+    }
+
+    private void updateDataBase() {
+        Hero hero = game.getHero();
+       // DataBase.updateHero(hero);
+    }
+
+    public void onAttack()
+    {
+        Enemy enemy = game.returnEnemy();
+        int xp = game.Result(enemy);
+
+        if (xp >= 0) {
+            this.field.printMessage("You won, and got " + xp + "xp.");
+            addExperience(xp);
+            game.returnField()[game.getCoordinates().getYCoord()][game.getCoordinates().getXCoord()] = false;
+//            setArtifact(enemy.getExtras());
+        }
+        else
+        {
+            this.field.printMessage("Game over!!!!");
+            this.field.finishGame();
+        }
+    }
+
     public void attack()
     {
         this.field.getEnemyInput();
@@ -69,7 +110,14 @@ public class Field
 
     public void run()
     {
-
+        if (new Random().nextBoolean()) {
+            this.field.printMessage("moved to previous position!");
+            game.getCoordinates().setXCoord(coordinates.getXCoord());
+            game.getCoordinates().setYCoord(coordinates.getYCoord());
+        } else {
+            this.field.printMessage("You fought");
+            onAttack();
+        }
     }
 
     public void startGame()

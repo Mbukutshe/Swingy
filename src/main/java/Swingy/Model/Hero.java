@@ -5,9 +5,9 @@ import javax.validation.constraints.NotNull;
 
 public class Hero extends Player {
     private int heroId;
-    @Min(1)
+    @Min(value = 0, message = "Level should not be less than 0")
     private int level;
-    @Min(1)
+    @Min(value = 0, message = "Experience should not be less than 0")
     private int exp;
     @NotNull(message = "Hero class is required")
     private String heroClass;

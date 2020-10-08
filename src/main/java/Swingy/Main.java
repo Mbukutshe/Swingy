@@ -1,4 +1,5 @@
 package Swingy;
+import Swingy.JDBC.db;
 import Swingy.View.StartConsole;
 
 import java.util.Scanner;
@@ -18,6 +19,7 @@ public class Main {
         }
         if (args[0].equals("console"))
         {
+            new db();
             new StartConsole().begin();
         }
         closeObjects();

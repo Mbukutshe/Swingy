@@ -47,6 +47,20 @@ public class RPGGame {
         return new Enemy("Enemy", aValue, hValue, dValue, extras);
     }
 
+    public int Result(Player enemy) {
+        int xp = enemy.getAttack() + enemy.getDefense() + enemy.gethPoints();
+        int rand = ThreadLocalRandom.current().nextInt(0, 101);
+
+        if (rand < 3) {
+            return xp;
+        }
+        else if (rand > 98)
+        {
+            return -1;
+        }
+        return hero.battle(enemy) ? xp : -1;
+    }
+
     public Extras createExtras() {
         int value = ThreadLocalRandom.current().nextInt(0, 10);
 
