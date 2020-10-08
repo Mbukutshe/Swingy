@@ -1,5 +1,6 @@
 package Swingy.Controller;
 
+import Swingy.JDBC.db;
 import Swingy.Model.Hero;
 import Swingy.Model.HeroCreator;
 import Swingy.Model.RPGGame;
@@ -14,7 +15,8 @@ public class CreateHero {
     public void create(String name, String heroClass)
     {
         Hero hero;
-        try {
+        try
+        {
             hero = HeroCreator.createHero(name, heroClass);
             //here!! will call validation method for hero
         } catch (IllegalArgumentException e) {
@@ -22,9 +24,14 @@ public class CreateHero {
             this.create.readInput();
             return;
         }
-
-//        int id = DataBase.insert(hero.getName(), hero.getHeroClass(), hero.getLevel(), hero.getExperience(), hero.getAttack(), hero.getDefense(), hero.getHitPoints());
-//        hero.setId(id);
+        int id = new db().putValues(hero.getName(),
+                hero.getHeroClass(),
+                hero.getLevel(),
+                hero.getExp(),
+                hero.getAttack(),
+                hero.gethPoints(),
+                hero.getDefense());
+        hero.setHeroId(id);
         game.beginRPGGame(hero);
         openGame();
     }

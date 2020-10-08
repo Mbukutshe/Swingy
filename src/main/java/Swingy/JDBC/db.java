@@ -25,21 +25,37 @@ public class db
 
     public int putValues(String name, String className, int level, int exp, int attack, int hp, int defense)
     {
+        int id = 0;
         if (this.getConnection() != null)
         {
             String query = "INSERT INTO `heroes` (`name`, `className`, `level`, `exp`, `attack`, `hp`, `defense`) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?) ";
             try
             {
+                PreparedStatement pre_stmt = connection.prepareStatement(query);
+                pre_stmt.setString(1, name);
+                pre_stmt.setString(2, className);
+                pre_stmt.setInt(3, level);
+                pre_stmt.setInt(4, exp);
+                pre_stmt.setInt(5, attack);
+                pre_stmt.setInt(6, hp);
+                pre_stmt.setInt(7, defense);
+                pre_stmt.executeUpdate();
+
+                query = "SELECT seq FROM sqlite_sequence WHERE `name` = \"heroes\"";
                 statement = connection.createStatement();
-                statement.execute(query);
+                ResultSet resultSet = statement.executeQuery(query);
+                if(resultSet.next())
+                {
+                    id = resultSet.getInt("seq");
+                }
             } catch (SQLException e)
             {
                 System.err.println( e.getClass().getName() + ": " + e.getMessage() );
                 System.exit(0);
             }
         }
-        return 1;
+        return id;
     }
 
     public void createTable()
@@ -48,7 +64,7 @@ public class db
         {
             String url = "jdbc:sqlite:RPGGAME.db";
             String sql = "CREATE TABLE IF NOT EXISTS `heroes` (" +
-                    "`id` INT PRIMARY KEY NOT NULL," +
+                    "`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "`name` TEXT NOT NULL," +
                     "`className` TEXT NOT NULL," +
                     "`level` INT NOT NULL," +

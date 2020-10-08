@@ -16,7 +16,6 @@ public class Hero extends Player {
     private Helm helm;
     public Hero(String name, int attack, int hPoints, int defense, int level, int exp, String heroClass, Weapon weapon, Armor armor, Helm helm) {
         super(name, attack, hPoints, defense);
-        this.heroId = heroId;
         this.setLevel(level);
         this.setExp(exp);
         this.setHeroClass(heroClass);
@@ -25,6 +24,10 @@ public class Hero extends Player {
         this.setHelm(helm);
     }
 
+    public void setHeroId(int heroId)
+    {
+        this.heroId = heroId;
+    }
     public int getLevel() {
         return level;
     }

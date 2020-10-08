@@ -8,7 +8,7 @@ public class HeroCreator {
         else if (hClass.equalsIgnoreCase("Soldier"))
                 return newSoldier(name);
             else if (hClass.equalsIgnoreCase("Hunter"))
-                    return  newCoward(name);
+                    return newHunter(name);
                 else
                     throw new IllegalArgumentException("Invalid Hero Class");
     }
@@ -21,7 +21,7 @@ public class HeroCreator {
         return  hero;
     }
 
-    public static Hero newCoward(String name){
+    public static Hero newHunter(String name){
         NewHero hero = newHero(name);
         hero.setHeroClass("Hunter");
         hero.setDefense(15);
