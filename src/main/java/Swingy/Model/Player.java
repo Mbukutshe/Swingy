@@ -5,14 +5,14 @@ import javax.validation.constraints.NotNull;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Player {
-    @NotNull(message = "name cannot be null")
+    @NotNull(message = "Hero Name cannot be empty!")
     protected String name;
     @NotNull
-    @Min(1)
+    @Min(value = 0, message="Attack should not be less than 0!")
     protected int attack;
-    @Min(1)
+    @Min(value = 1, message="Hit Points should not be less than 1!")
     protected int hPoints;
-    @Min(1)
+    @Min(value = 0, message="Defense should not be less than 0!")
     protected int defense;
 
     public Player(String name, int attack, int hPoints, int defense)

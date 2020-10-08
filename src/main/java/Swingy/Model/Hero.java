@@ -16,6 +16,7 @@ public class Hero extends Player {
     private Helm helm;
     public Hero(String name, int attack, int hPoints, int defense, int level, int exp, String heroClass, Weapon weapon, Armor armor, Helm helm) {
         super(name, attack, hPoints, defense);
+        this.heroId = heroId;
         this.setLevel(level);
         this.setExp(exp);
         this.setHeroClass(heroClass);
@@ -28,7 +29,7 @@ public class Hero extends Player {
         return level;
     }
 
-    public void setLevel(@Min(1) int level) {
+    public void setLevel(@Min(0) int level) {
         this.level = level;
     }
 
@@ -36,7 +37,7 @@ public class Hero extends Player {
         return exp;
     }
 
-    public void setExp(@Min(1) int exp) {
+    public void setExp(@Min(0) int exp) {
         this.exp = exp;
     }
 
@@ -104,8 +105,8 @@ public class Hero extends Player {
     {
         int level = this.getLevel() + 1;
         int hPoints = this.gethPoints() + (50 + (level * 450));
-        this.setAttack(this.getAttack() + (level * 3));
-        this.setDefense(this.getDefense() + (level * 2));
+        this.setAttack(this.getAttack() + (level * 4));
+        this.setDefense(this.getDefense() + (level * 3));
         this.setLevel(level);
         this.sethPoints(hPoints);
     }
@@ -148,7 +149,7 @@ public class Hero extends Player {
             output.append(this.getWeapon().getName()).append(" (attack +").append(this.getWeapon().getPoints()).append(")\n");
         }
         else {
-            output.append(" no weapon\n");
+            output.append("no weapon\n");
         }
 
         output.append("Helm: ");
@@ -157,14 +158,14 @@ public class Hero extends Player {
             output.append(this.getHelm().getName()).append(" (hp +").append(this.getHelm().getPoints()).append(")\n");
         }
         else {
-            output.append(" no helmet\n");
+            output.append("no helmet\n");
         }
 
         output.append("Armor: ");
         if (this.getArmor() != null)
             output.append(this.getArmor().getName()).append(" (defense +").append(this.getArmor().getPoints()).append(")\n");
         else
-            output.append(" no armor\n");
+            output.append("no armor\n");
         return output.toString();
     }
 }
