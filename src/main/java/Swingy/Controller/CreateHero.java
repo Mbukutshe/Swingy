@@ -4,8 +4,8 @@ import Swingy.JDBC.db;
 import Swingy.Model.Hero;
 import Swingy.Model.HeroCreator;
 import Swingy.Model.RPGGame;
+import Swingy.Validation.HeroException;
 import Swingy.View.Create;
-import Swingy.View.CreateHeroConsole;
 
 public class CreateHero {
 
@@ -18,8 +18,8 @@ public class CreateHero {
         try
         {
             hero = HeroCreator.createHero(name, heroClass);
-            //here!! will call validation method for hero
-        } catch (IllegalArgumentException e) {
+            hero.validate();
+        } catch (IllegalArgumentException | HeroException e) {
             this.create.error(e.getMessage());
             this.create.readInput();
             return;
