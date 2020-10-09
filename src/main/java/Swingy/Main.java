@@ -1,8 +1,8 @@
 package Swingy;
 import Swingy.JDBC.db;
 import Swingy.View.StartConsole;
-
 import java.util.Scanner;
+
 public class Main {
     private static Scanner scanner;
     public static void main(String[] args)
@@ -21,6 +21,7 @@ public class Main {
         {
             new db();
             new StartConsole().begin();
+          //  db.selectHeroes();
         }
         closeObjects();
     }

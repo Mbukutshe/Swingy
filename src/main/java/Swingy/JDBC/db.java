@@ -1,6 +1,10 @@
 package Swingy.JDBC;
 
+import Swingy.Model.Hero;
+
 import java.sql.*;
+import java.util.ArrayList;
+
 public class db
 {
     private static Connection connection;
@@ -45,6 +49,7 @@ public class db
                 query = "SELECT seq FROM sqlite_sequence WHERE `name` = \"heroes\"";
                 statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
+                System.out.println(selectHeroes().toString());
                 if(resultSet.next())
                 {
                     id = resultSet.getInt("seq");
@@ -89,6 +94,30 @@ public class db
         }
     }
 
+    public static ArrayList<String> selectHeroes() {
+        String sqlQuery = "SELECT * FROM heroes";
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sqlQuery)) {
+            arrayList.add("ID\tName\tClass\tLevel\tExp\tAttack\tHp\tDefense");
+            for (int i = 1; rs.next(); i++)
+            {
+                arrayList.add(String.format("%d.\t%s\t(%s)\t%d\t%d\t%d\t%d\t%d ", i,
+                        rs.getString("name"),
+                        rs.getString("className"),
+                        rs.getInt("level"),
+                        rs.getInt("exp"),
+                        rs.getInt("attack"),
+                        rs.getInt("hp"),
+                        rs.getInt("defense")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return arrayList;
+    }
+
     public void properConnection()
     {
         String url = "jdbc:mysql://localhost:3306/RPGGAME";
@@ -100,6 +129,29 @@ public class db
         {
             e.printStackTrace();
             return;
+        }
+    }
+
+    public static void update(Hero hero)
+    {
+        String query = "UPDATE heroes SET level = ?, exp = ?, attack = ?, hp = ?, defense = ? , " +
+                "WHERE id = ?";
+        try
+        {
+            PreparedStatement pre_stmt = connection.prepareStatement(query);
+            pre_stmt.setInt(1, hero.getLevel());
+            pre_stmt.setInt(2, hero.getExp());
+            pre_stmt.setInt(3, hero.getAttack());
+            pre_stmt.setInt(4, hero.gethPoints());
+            pre_stmt.setInt(5, hero.getDefense());
+            pre_stmt.setInt(6, hero.getHeroId());
+            pre_stmt.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("error: "+e.getMessage());
+            System.exit(0);
         }
     }
 

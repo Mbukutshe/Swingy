@@ -1,5 +1,6 @@
 package Swingy.Controller;
 
+import Swingy.JDBC.db;
 import Swingy.Model.Coordinates;
 import Swingy.Model.Enemy;
 import Swingy.Model.Hero;
@@ -71,14 +72,14 @@ public class Field
 
     private void addExperience(int xp) {
         int level = game.getHero().getLevel();
-        game.getHero().increaseLevel(xp);
+        game.getHero().increaseExp(xp);
         if (level != game.getHero().getLevel())
             this.field.printMessage("Increase!!!\nHP, attack and defense were increased!");
     }
 
     private void updateDataBase() {
         Hero hero = game.getHero();
-       // DataBase.updateHero(hero);
+        db.update(hero);
     }
 
     public void onAttack()

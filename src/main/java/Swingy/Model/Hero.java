@@ -24,10 +24,16 @@ public class Hero extends Player {
         this.setHelm(helm);
     }
 
+    public int getHeroId()
+    {
+        return this.heroId;
+    }
+
     public void setHeroId(int heroId)
     {
         this.heroId = heroId;
     }
+
     public int getLevel() {
         return level;
     }
@@ -104,7 +110,7 @@ public class Hero extends Player {
         this.setHelm(tool);
     }
 
-    public void increaseExp()
+    public void increaseLevel()
     {
         int level = this.getLevel() + 1;
         int hPoints = this.gethPoints() + (50 + (level * 450));
@@ -114,13 +120,13 @@ public class Hero extends Player {
         this.sethPoints(hPoints);
     }
 
-    public void increaseLevel(int exp)
+    public void increaseExp(int exp)
     {
         int next = (this.getLevel() + 1) * 1000 + this.getLevel() * this.getLevel() * 450;
         int sum = this.getExp() + exp;
         if(sum >= next)
         {
-            this.increaseExp();
+            this.increaseLevel();
         }
         this.setExp(this.getExp() + exp);
     }
