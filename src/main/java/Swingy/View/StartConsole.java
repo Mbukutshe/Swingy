@@ -17,8 +17,7 @@ public class StartConsole extends Entry{
         Scanner scanner = Main.returnScanner();
         System.out.println("\n1:CREATE - hero\n" +
                 "2:SELECT - created hero\n" +
-                "3:SWITCH - GUI View\n" +
-                "Options (1, 2, 3):");
+                "Options (1, 2):");
         while (scanner.hasNext())
         {
             String command = scanner.nextLine();
@@ -33,11 +32,6 @@ public class StartConsole extends Entry{
                 c.selectHero();
                 break;
             }
-            else if (command.equalsIgnoreCase("3"))
-            {
-                c.switchMode();
-                break;
-            }
             else
             {
                 System.out.println("Unknown command");
@@ -46,8 +40,9 @@ public class StartConsole extends Entry{
     }
 
     @Override
-    public void chooseHero() {
-
+    public void chooseHero()
+    {
+        new ChooseConsole().entry();
     }
 
     @Override

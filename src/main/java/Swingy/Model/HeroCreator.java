@@ -15,8 +15,8 @@ public class HeroCreator {
 
     public static NewHero newHero(String name){
         NewHero hero = new NewHero();
-        hero.setLevel(0);
-        hero.setExp(0);
+        hero.setLevel(1);
+        hero.setExp(500);
         hero.setName(name);
         return  hero;
     }

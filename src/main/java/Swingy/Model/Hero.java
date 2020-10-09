@@ -144,13 +144,13 @@ public class Hero extends Player {
     public String printOut()
     {
         StringBuilder output = new StringBuilder();
-        output.append("Name: ").append(this.getName()).append("\n");
-        output.append("Class: ").append(this.getHeroClass()).append("\n");
-        output.append("Level: ").append(this.getLevel()).append("\n");
-        output.append("XP: ").append(this.getExp()).append("\n");
-        output.append("Attack: ").append(this.getAttack()).append("\n");
-        output.append("Defense: ").append(this.getDefense()).append("\n");
-        output.append("HP: ").append(this.gethPoints()).append("\n");
+        output.append("Name: ").append(this.getName()).append("\t");
+        output.append("Class: ").append(this.getHeroClass()).append("\t");
+        output.append("Level: ").append(this.getLevel()).append("\t");
+        output.append("XP: ").append(this.getExp()).append("\t");
+        output.append("Attack: ").append(this.getAttack()).append("\t");
+        output.append("Defense: ").append(this.getDefense()).append("\t");
+        output.append("HP: ").append(this.gethPoints()).append("\t");
 
         output.append("Weapon: ");
         if (this.getWeapon() != null)

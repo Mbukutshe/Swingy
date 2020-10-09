@@ -1,6 +1,7 @@
 package Swingy.JDBC;
 
 import Swingy.Model.Hero;
+import Swingy.Model.NewHero;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,9 +9,9 @@ import java.util.ArrayList;
 public class db
 {
     private static Connection connection;
-    private Statement statement;
-    private String username = "root";
-    private  String password = "";
+    private static Statement statement;
+    private static PreparedStatement pre_stmt = null;
+    private static  ResultSet resultSet = null;
 
     public db()
     {
@@ -27,10 +28,10 @@ public class db
         createTable();
     }
 
-    public int putValues(String name, String className, int level, int exp, int attack, int hp, int defense)
+    public static int putValues(String name, String className, int level, int exp, int attack, int hp, int defense)
     {
         int id = 0;
-        if (this.getConnection() != null)
+        if (properConnection() != null)
         {
             String query = "INSERT INTO `heroes` (`name`, `className`, `level`, `exp`, `attack`, `hp`, `defense`) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?) ";
@@ -47,13 +48,15 @@ public class db
                 pre_stmt.executeUpdate();
 
                 query = "SELECT seq FROM sqlite_sequence WHERE `name` = \"heroes\"";
-                statement = connection.createStatement();
+                statement = properConnection().createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 System.out.println(selectHeroes().toString());
                 if(resultSet.next())
                 {
                     id = resultSet.getInt("seq");
                 }
+                statement.close();
+                connection.close();
             } catch (SQLException e)
             {
                 System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -67,7 +70,6 @@ public class db
     {
         if (this.getConnection() != null)
         {
-            String url = "jdbc:sqlite:RPGGAME.db";
             String sql = "CREATE TABLE IF NOT EXISTS `heroes` (" +
                     "`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "`name` TEXT NOT NULL," +
@@ -79,18 +81,15 @@ public class db
                     "`defense` INT NOT NULL)";
             try
             {
-                Class.forName("org.sqlite.JDBC");
-                connection = DriverManager.getConnection(url);
-                statement = connection.createStatement();
+                statement = properConnection().createStatement();
                 statement.executeUpdate(sql);
-                statement.close();
+                connection.close();
             }
-            catch (ClassNotFoundException | SQLException e)
+            catch (SQLException e)
             {
                 System.err.println( e.getClass().getName() + ": " + e.getMessage() );
                 System.exit(0);
             }
-            System.out.println("Table created successfully\n");
         }
     }
 
@@ -98,12 +97,12 @@ public class db
         String sqlQuery = "SELECT * FROM heroes";
         ArrayList<String> arrayList = new ArrayList<>();
 
-        try (Statement stmt = connection.createStatement();
+        try (Statement stmt = properConnection().createStatement();
              ResultSet rs = stmt.executeQuery(sqlQuery)) {
-            arrayList.add("ID\tName\tClass\tLevel\tExp\tAttack\tHp\tDefense");
+            arrayList.add("ID\tName\tClass\t\tLevel\t\tExp\t\tAttack\t\tHp\t\tDefense");
             for (int i = 1; rs.next(); i++)
             {
-                arrayList.add(String.format("%d.\t%s\t(%s)\t%d\t%d\t%d\t%d\t%d ", i,
+                arrayList.add(String.format("%d.\t%s\t%s\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d ", i,
                         rs.getString("name"),
                         rs.getString("className"),
                         rs.getInt("level"),
@@ -112,33 +111,40 @@ public class db
                         rs.getInt("hp"),
                         rs.getInt("defense")));
             }
+            stmt.close();
+            connection.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return arrayList;
     }
 
-    public void properConnection()
+    public static Connection properConnection()
     {
-        String url = "jdbc:mysql://localhost:3306/RPGGAME";
-        try
+        if (connection != null)
         {
-            connection = DriverManager.getConnection(url, this.username, this.password);
+            String url = "jdbc:sqlite:RPGGAME.db";
+            try
+            {
+                Class.forName("org.sqlite.JDBC");
+                connection = DriverManager.getConnection(url);
+            }
+            catch (SQLException | ClassNotFoundException e)
+            {
+                System.out.println("error: " + e.getMessage());
+            }
         }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-            return;
-        }
+
+        return connection;
     }
 
     public static void update(Hero hero)
     {
-        String query = "UPDATE heroes SET level = ?, exp = ?, attack = ?, hp = ?, defense = ? , " +
+        String query = "UPDATE heroes SET level = ?, exp = ?, attack = ?, hp = ?, defense = ? " +
                 "WHERE id = ?";
         try
         {
-            PreparedStatement pre_stmt = connection.prepareStatement(query);
+            PreparedStatement pre_stmt = properConnection().prepareStatement(query);
             pre_stmt.setInt(1, hero.getLevel());
             pre_stmt.setInt(2, hero.getExp());
             pre_stmt.setInt(3, hero.getAttack());
@@ -147,6 +153,8 @@ public class db
             pre_stmt.setInt(6, hero.getHeroId());
             pre_stmt.executeUpdate();
 
+//            pre_stmt.close();
+//            connection.close();
         }
         catch (SQLException e)
         {
@@ -160,19 +168,50 @@ public class db
         return this.connection;
     }
 
-    public void closeConnection()
+    public static void closeConnection()
     {
-        if (this.connection != null)
+        if (connection != null)
         {
             try
             {
-                this.connection.close();
+                connection.close();
             }
             catch (SQLException e)
             {
-                e.printStackTrace();
-                return;
+                System.out.println(e.getMessage());
             }
         }
+    }
+
+    public static  Hero chooseHero(int id)
+    {
+        Hero hero = null;
+        NewHero newHero = null;
+        String query = "SELECT * FROM heroes WHERE id = ?";
+        try
+        {
+
+            pre_stmt = properConnection().prepareStatement(query);
+            pre_stmt.setInt(1, id);
+            resultSet = pre_stmt.executeQuery();
+            if(resultSet.next()) {
+                newHero = new NewHero();
+                newHero.setName(resultSet.getString("name"));
+                newHero.setHeroClass(resultSet.getString("className"));
+                newHero.setLevel(resultSet.getInt("level"));
+                newHero.setExp(resultSet.getInt("exp"));
+                newHero.setAttack(resultSet.getInt("attack"));
+                newHero.sethPoints(resultSet.getInt("hp"));
+                newHero.setDefense((resultSet.getInt("defense")));
+            }
+            pre_stmt.close();
+            connection.close();
+            hero = newHero.hero();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("error: "+ e.getMessage());
+        }
+        return hero;
     }
 }

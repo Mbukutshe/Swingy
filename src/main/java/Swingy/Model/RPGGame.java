@@ -111,7 +111,7 @@ public class RPGGame {
 
     public Hero getHero()
     {
-        return hero;
+        return this.hero;
     }
 
     public void setHero(Hero hero)

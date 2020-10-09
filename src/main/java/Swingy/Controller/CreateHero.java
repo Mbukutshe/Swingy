@@ -24,7 +24,7 @@ public class CreateHero {
             this.create.readInput();
             return;
         }
-        int id = new db().putValues(hero.getName(),
+        int id = db.putValues(hero.getName(),
                 hero.getHeroClass(),
                 hero.getLevel(),
                 hero.getExp(),

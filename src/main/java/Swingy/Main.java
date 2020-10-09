@@ -9,19 +9,18 @@ public class Main {
     {
         if (args.length != 1)
         {
-            System.out.println("Usage: pass console | gui as an argument");
+            System.out.println("Usage: write console | gui as an argument");
             System.exit(1);
         }
         if ((!args[0].equals("console") && !args[0].equals("gui")))
         {
-            System.out.println("Usage: pass console | gui as an argument");
+            System.out.println("Usage: write console | gui as an argument");
             System.exit(1);
         }
         if (args[0].equals("console"))
         {
             new db();
             new StartConsole().begin();
-          //  db.selectHeroes();
         }
         closeObjects();
     }
@@ -40,6 +39,10 @@ public class Main {
         if (scanner != null)
         {
             scanner.close();
+        }
+        if (db.properConnection() != null)
+        {
+            db.closeConnection();
         }
     }
 }
