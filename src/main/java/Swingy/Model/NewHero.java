@@ -1,6 +1,7 @@
 package Swingy.Model;
 
 public class NewHero {
+    protected int heroId;
     protected String name;
     protected int attack;
     protected int defense;
@@ -13,7 +14,7 @@ public class NewHero {
     protected Helm helm;
 
     public Hero hero(){
-        return new Hero(name, attack, hPoints, defense, level, exp, heroClass, weapon, armor, helm);
+        return new Hero(heroId, name, attack, hPoints, defense, level, exp, heroClass, weapon, armor, helm);
     }
 
     public void setName(String name) {
@@ -42,6 +43,10 @@ public class NewHero {
 
     public void setExp(int exp) {
         this.exp = exp;
+    }
+    public void setHeroId(int heroId)
+    {
+        this.heroId = heroId;
     }
 
     public void setWeapon(Weapon weapon) {

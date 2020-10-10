@@ -88,14 +88,14 @@ public class Field
         int xp = game.Result(enemy);
 
         if (xp >= 0) {
-            this.field.printMessage("You won, and got " + xp + "xp.");
+            this.field.printMessage("You defeated the Enemy, and got " + xp + "xp.");
             addExperience(xp);
             game.returnField()[game.getCoordinates().getYCoord()][game.getCoordinates().getXCoord()] = false;
-//            setArtifact(enemy.getExtras());
+            updateDataBase();
         }
         else
         {
-            this.field.printMessage("Game over!!!!");
+            this.field.printMessage("Game over!!!!You Lost.");
             this.field.finishGame();
         }
     }

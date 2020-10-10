@@ -93,7 +93,7 @@ public class GameConsole extends Game{
     public void finishGame()
     {
         System.out.println("Game Finished!");
-        System.exit(0);
+        System.exit(1);
     }
 
     @Override

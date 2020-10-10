@@ -152,9 +152,15 @@ public class db
             pre_stmt.setInt(5, hero.getDefense());
             pre_stmt.setInt(6, hero.getHeroId());
             pre_stmt.executeUpdate();
-
-//            pre_stmt.close();
-//            connection.close();
+            System.out.println("Supposed to update the hero Details." +
+                    "\nLevel : " + hero.getLevel() + "\n" +
+                    "Experience : " + hero.getExp() + "\n" +
+                    "Attack : " + hero.getAttack() + "\n" +
+                    "HP : " + hero.gethPoints() + "\n" +
+                    "Defense : " + hero.getDefense() + "\n" +
+                    "Id : " + hero.getHeroId());
+            pre_stmt.close();
+            connection.close();
         }
         catch (SQLException e)
         {
@@ -196,6 +202,7 @@ public class db
             resultSet = pre_stmt.executeQuery();
             if(resultSet.next()) {
                 newHero = new NewHero();
+                newHero.setHeroId(resultSet.getInt("id"));
                 newHero.setName(resultSet.getString("name"));
                 newHero.setHeroClass(resultSet.getString("className"));
                 newHero.setLevel(resultSet.getInt("level"));

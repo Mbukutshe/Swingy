@@ -23,8 +23,9 @@ public class Hero extends Player {
     private  Weapon weapon;
     private  Armor armor;
     private Helm helm;
-    public Hero(String name, int attack, int hPoints, int defense, int level, int exp, String heroClass, Weapon weapon, Armor armor, Helm helm) {
+    public Hero(int id, String name, int attack, int hPoints, int defense, int level, int exp, String heroClass, Weapon weapon, Armor armor, Helm helm) {
         super(name, attack, hPoints, defense);
+        this.heroId = id;
         this.setLevel(level);
         this.setExp(exp);
         this.setHeroClass(heroClass);

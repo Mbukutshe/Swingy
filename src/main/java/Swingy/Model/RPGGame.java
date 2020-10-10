@@ -69,7 +69,7 @@ public class RPGGame {
             extras = new Weapon("Sword", Constants.returnWeaponValue(hero));
         }
         else if (value == 1) {
-            extras = new Helm("Pot", Constants.returnHelmValue(hero));
+            extras = new Helm("Helmet", Constants.returnHelmValue(hero));
         }
         else if (value == 2)
             extras = new Armor("Shield", Constants.returnArmorValue(hero));
